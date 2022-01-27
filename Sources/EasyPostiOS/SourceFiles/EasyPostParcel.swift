@@ -26,6 +26,16 @@ open class EasyPostParcel {
         
     }
     
+    public init(length: NSNumber?, width: NSNumber?, height: NSNumber?, predefinedPackage: String?, weight: NSNumber, createdAt: Date?, updatedAt: Date?) {
+        self.length = length
+        self.width = width
+        self.height = height
+        self.predefinedPackage = predefinedPackage
+        self.weight = weight
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+    }
+    
     public init(jsonDictionary: [String: Any]) {
         //Load the JSON dictionary
         

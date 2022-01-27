@@ -23,19 +23,22 @@ open class EasyPostAddress {
     open var isResidential:Bool?
     open var createdAt:Date?
     open var updatedAt:Date?
+    public init() {
+        
+    }
     
     public init(street1: String, street2: String?, city: String, state: String, zip: String, country: String, name: String, company: String?, phone: String, email: String?, isResidential: Bool?, createdAt: Date?, updatedAt: Date?) {
-        street1 = street1
-        street2 = street2
-        city = city
-        state = state
-        zip = zip
-        country = country
-        name = name
-        company = company
-        phone = phone
-        email = email
-        isResidential = isResidential
+        self.street1 = street1
+        self.street2 = street2
+        self.city = city
+        self.state = state
+        self.zip = zip
+        self.country = country
+        self.name = name
+        self.company = company
+        self.phone = phone
+        self.email = email
+        self.isResidential = isResidential
     }
     
     public init(jsonDictionary: [String: Any]) {
