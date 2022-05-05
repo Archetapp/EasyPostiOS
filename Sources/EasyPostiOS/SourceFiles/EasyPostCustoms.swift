@@ -16,8 +16,13 @@ open class EasyPostCustomsInfo {
     var eelPfc: String?
     var customsItems: [EasyPostCustomItem]?
     
-    public init() {
-        
+    public init(customsCertify: Bool?, customsSigner: String?, contentsType: String?, restrictionType: String?, eelPfc: String?, customsItems: [EasyPostCustomItem]?) {
+        self.customsCertify = customsCertify
+        self.customsSigner = customsSigner
+        self.contentsType = contentsType
+        self.restrictionType = restrictionType
+        self.eelPfc = eelPfc
+        self.customsItems = customsItems
     }
     
     public init(jsonDictionary: [String: Any]) {

@@ -8,6 +8,7 @@
 import Foundation
 
 open class EasyPostCustomItem {
+    var id: String?
     var description: String?
     var quantity: Int?
     var weight: Double?
@@ -15,8 +16,13 @@ open class EasyPostCustomItem {
     var hsTariffNumber: String?
     var originCountry: String?
     
-    public init() {
-        
+    public init(description: String?, quantity: Int?, weight: Double?, value: Double?, hsTariffNumber: String?, originCountry: String?) {
+        self.description = description
+        self.quantity = quantity
+        self.weight = weight
+        self.value = value
+        self.hsTariffNumber = hsTariffNumber
+        self.originCountry = originCountry
     }
     
     public init(jsonDictionary: [String: Any]) {
