@@ -111,7 +111,7 @@ open class EasyPostApi {
         
         var i = 0
         for item in customsItems {
-            parameters += parametersFromCustomsItem(item, keyStringFormat: "shipment[customs_items][\(i)][%ELEMENT%]")
+            parameters += parametersFromCustomsItem(item, keyStringFormat: "customs_info[customs_items][\(i)][%ELEMENT%]")
             i += 1
         }
         
