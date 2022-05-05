@@ -86,6 +86,69 @@ open class EasyPostApi {
         return parameters
     }
     
+    func parametersFromCustoms(_ customsInfo: EasyPostCustomsInfo, customsItems: [EasyPostCustomItem], keyStringFormat: String) -> [String : String] {
+        var parameters = [String: String]()
+
+        if let customsCertify = customsInfo.customsCertify {
+            parameters.updateValue("\(customsCertify)", forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"customs_info"))
+        }
+        
+        if let customsSigner = customsInfo.customsSigner {
+            parameters.updateValue(customsSigner, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"customs_signer"))
+        }
+        
+        if let contentsType = customsInfo.contentsType {
+            parameters.updateValue(contentsType, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"contents_type"))
+        }
+        
+        if let restrictionType = customsInfo.restrictionType {
+            parameters.updateValue(restrictionType, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"restriction_type"))
+        }
+        
+        if let eelPfc = customsInfo.eelPfc {
+            parameters.updateValue(eelPfc, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"eel_pfc"))
+        }
+        
+        var i = 0
+        for item in customsItems {
+            parameters += parametersFromCustomsItem(item, keyStringFormat: "shipment[customs_items][\(i)][%ELEMENT%]")
+            i += 1
+        }
+        
+        return parameters
+    }
+    
+    func parametersFromCustomsItem(_ customsItem: EasyPostCustomItem, keyStringFormat: String) -> [String : String] {
+        
+        var parameters = [String : String]()
+        
+        if let description = customsItem.description {
+            parameters.updateValue(description, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with: "description"))
+        }
+        
+        if let quantity = customsItem.quantity {
+            parameters.updateValue(String(quantity), forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with: "quantity"))
+        }
+        
+        if let weight = customsItem.weight {
+            parameters.updateValue(String(weight), forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with: "weight"))
+        }
+        
+        if let value = customsItem.value {
+            parameters.updateValue(String(value), forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with: "value"))
+        }
+        
+        if let hsTariffNumber = customsItem.hsTariffNumber {
+            parameters.updateValue(hsTariffNumber, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with: "hs_tariff_number"))
+        }
+        
+        if let originCountry = customsItem.originCountry {
+            parameters.updateValue(originCountry, forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with: "origin_country"))
+        }
+        
+        return parameters
+    }
+    
     func paramtersFromParcel(_ parcel:EasyPostParcel, keyStringFormat:String) -> [String : String] {
         var parameters = [String : String]()
         
@@ -171,6 +234,35 @@ open class EasyPostApi {
                 break
             }
         }
+    }
+    
+    open func postCustomsInfo(_ customsInfo: EasyPostCustomsInfo, customsItems: [EasyPostCustomItem], completion: @escaping(_ result: EasyPostResult<EasyPostCustomsInfo>) -> ()) {
+        
+        let parameters = parametersFromCustoms(customsInfo, customsItems: customsItems, keyStringFormat: "customs_info[%ELEMENT%]")
+        
+        guard let request = URLRequest.newRequest(urlString: apiBaseUrl + "customs_infos", method: .post, parameters: parameters, headers: getAuthHeader()) else {
+            return
+        }
+        
+        URLSession.newSession().apiDataTask(with: request) { result in
+            switch result {
+            case .success (let json):
+                if let resultDict = json as? [String: Any] {
+                    let customsInfo = EasyPostCustomsInfo(jsonDictionary: resultDict)
+                    
+                    completion(EasyPostResult.success(customsInfo))
+                } else {
+                    print("Result was successful, but blank.")
+                    completion(EasyPostResult.failure(NSError(domain: self.errorDomain, code: 2, userInfo: nil)))
+                }
+                break
+            case .failure (let error):
+                print(error)
+                completion(EasyPostResult.failure(error))
+                break
+            }
+        }
+        
     }
     
     open func verifyAddress(_ addressId:String, completion: @escaping (_ result: EasyPostResult<EasyPostAddress>) -> ()) {
