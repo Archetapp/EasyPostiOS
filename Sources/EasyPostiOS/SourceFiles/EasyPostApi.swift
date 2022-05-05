@@ -90,7 +90,7 @@ open class EasyPostApi {
         var parameters = [String: String]()
 
         if let customsCertify = customsInfo.customsCertify {
-            parameters.updateValue("\(customsCertify)", forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"customs_info"))
+            parameters.updateValue("\(customsCertify)", forKey: keyStringFormat.replacingOccurrences(of: "%ELEMENT%", with:"customs_certify"))
         }
         
         if let customsSigner = customsInfo.customsSigner {
