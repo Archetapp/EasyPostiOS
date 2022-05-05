@@ -239,7 +239,7 @@ open class EasyPostApi {
     open func postCustomsInfo(_ customsInfo: EasyPostCustomsInfo, customsItems: [EasyPostCustomItem], completion: @escaping(_ result: EasyPostResult<EasyPostCustomsInfo>) -> ()) {
         
         let parameters = parametersFromCustoms(customsInfo, customsItems: customsItems, keyStringFormat: "customs_info[%ELEMENT%]")
-        
+        print(parameters)
         guard let request = URLRequest.newRequest(urlString: apiBaseUrl + "customs_infos", method: .post, parameters: parameters, headers: getAuthHeader()) else {
             return
         }
