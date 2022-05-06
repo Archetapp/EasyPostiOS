@@ -8,13 +8,13 @@
 import Foundation
 
 open class EasyPostCustomItem {
-    var id: String?
-    var description: String?
-    var quantity: Int?
-    var weight: Double?
-    var value: Double?
-    var hsTariffNumber: String?
-    var originCountry: String?
+    open var id: String?
+    open var description: String?
+    open var quantity: Int?
+    open var weight: Double?
+    open var value: Double?
+    open var hsTariffNumber: String?
+    open var originCountry: String?
     
     public init(description: String?, quantity: Int?, weight: Double?, value: Double?, hsTariffNumber: String?, originCountry: String?) {
         self.description = description

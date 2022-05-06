@@ -8,13 +8,13 @@
 import Foundation
 
 open class EasyPostCustomsInfo {
-    var id: String?
-    var customsCertify: Bool?
-    var customsSigner: String?
-    var contentsType: String?
-    var restrictionType: String?
-    var eelPfc: String?
-    var customsItems: [EasyPostCustomItem]?
+    open var id: String?
+    open var customsCertify: Bool?
+    open var customsSigner: String?
+    open var contentsType: String?
+    open var restrictionType: String?
+    open var eelPfc: String?
+    open var customsItems: [EasyPostCustomItem]?
     
     public init(customsCertify: Bool?, customsSigner: String?, contentsType: String?, restrictionType: String?, eelPfc: String?, customsItems: [EasyPostCustomItem]?) {
         self.customsCertify = customsCertify
