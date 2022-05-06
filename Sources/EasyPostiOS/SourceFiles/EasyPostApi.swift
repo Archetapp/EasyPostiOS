@@ -173,7 +173,7 @@ open class EasyPostApi {
         return parameters
     }
     
-    func parametersForShipment(_ toAddress:EasyPostAddress, fromAddress:EasyPostAddress, parcel:EasyPostParcel, carrierAccountIds:[String]?, referenecNumber:String?) -> [String : String] {
+    func parametersForShipment(_ toAddress:EasyPostAddress, fromAddress:EasyPostAddress, parcel:EasyPostParcel, carrierAccountIds:[String]?, referenecNumber:String?, customsId: String?) -> [String : String] {
         var parameters = [String : String]()
         
         if let toAddressId = toAddress.id {
@@ -198,6 +198,10 @@ open class EasyPostApi {
             for index in 0 ..< carriers.count {
                 parameters.updateValue(carriers[index], forKey: "shipment[carrier_accounts][\(index)][id]")
             }
+        }
+        
+        if let customsId = customsId {
+            parameters.updateValue(customsId, forKey: "shipment[customs_info][id]")
         }
         
         if let reference = referenecNumber {
