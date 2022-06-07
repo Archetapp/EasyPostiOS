@@ -67,6 +67,7 @@ open class trackingDetail {
     open var object : String?
     open var message : String?
     open var status : String?
+    open var statusMessage: String?
     open var date : Date?
     open var source : String?
     open var progress : Double?
@@ -93,42 +94,52 @@ open class trackingDetail {
             switch stringObject {
             case "unknown" :
                 progress = 0
+                statusMessage = "Pending"
                 progressColor = UIColor.universalBlue.cgColor
                 break
             case "pre_transit" :
                 progress = 0.2
+                statusMessage = "Preparing"
                 progressColor = UIColor.universalBlue.cgColor
                 break
             case "in_transit" :
                 progress = 0.5
+                statusMessage = "On the way"
                 progressColor = UIColor.universalBlue.cgColor
                 break
             case "out_for_delivery" :
                 progress = 0.7
+                statusMessage = "Out for delivery"
                 progressColor = UIColor.universalBlue.cgColor
                 break
             case "delivered" :
                 progress = 0.7
+                statusMessage = "Delivered"
                 progressColor = UIColor.universalGreen.cgColor
                 break
             case "available_for_pickup" :
                 progress = 1
+                statusMessage = "Available for pickup"
                 progressColor = UIColor.universalGreen.cgColor
                 break
             case "return_to_sender" :
                 progress = 0
+                statusMessage = "Return to sender"
                 progressColor = UIColor.universalRed.cgColor
                 break
             case "failure" :
                 progress = 1
+                statusMessage = "Failure to send"
                 progressColor = UIColor.universalRed.cgColor
                 break
             case "cancelled" :
                 progress = 1
+                statusMessage = "Cancelled"
                 progressColor = UIColor.universalRed.cgColor
                 break
             case "error" :
                 progress = 0
+                statusMessage = "Error"
                 progressColor = UIColor.universalRed.cgColor
                 break
             default :
