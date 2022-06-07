@@ -14,6 +14,7 @@ open class EasyPostTracker {
     open var carrier:String?
     open var createdAt:Date?
     open var updatedAt:Date?
+	open var tracking_code:String?
     open var tracking_details : [trackingDetail]?
     
     public init() {
@@ -34,6 +35,10 @@ open class EasyPostTracker {
         if let stringValue = jsonDictionary["carrier"] as? String {
             carrier = stringValue
         }
+		
+		if let stringValue = jsonDictionary["tracking_code"] as? String {
+			tracking_code = stringValue
+		}
         
         if let stringValue = jsonDictionary["est_delivery_date"] as? String {
             estimatedDelivery = dateFormatter.date(from: stringValue)
